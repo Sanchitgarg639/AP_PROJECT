@@ -52,12 +52,14 @@
         <link rel="stylesheet" href="css/signups.css">
 
         <title>JobSeek | Login.</title>
+    
+
     </head>
     <body>
         <div class="main-container">
-            <div class="logo text-center my-4"><a href="home.php">JobSeek</a></div>
+            <div class="logo text-center my-4"><a href="home.php"><span style=" color: #CBB26A;">JOBSEEK</span></a></div>
 
-            <div class="container my-4">
+            <div class="container my-4"  style="float: right;margin-right: 50px;">
                 <h3 class="px-4" style="padding-top: 20px;">Login </h3>
                 <h6 class="px-4">( If you already have an account. )</h6>
 
