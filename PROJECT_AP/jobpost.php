@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,11 +55,7 @@
     <div class="container">
         <form id="searchForm" method="GET" action="jobpost.php">
             <div class="row g-3">
-                <div class="col-md-3"><input type="text" class="form-control" name="title" placeholder="Job Title"></div>
-                <div class="col-md-3"><input type="text" class="form-control" name="company" placeholder="Company"></div>
-                <div class="col-md-3"><input type="text" class="form-control" name="skills" placeholder="Skills"></div>
-                <div class="col-md-3"><input type="text" class="form-control" name="salary" placeholder="Salary"></div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <select name="jobtype" class="form-control">
                         <option value="">Job Type</option>
                         <option value="full-time">Full-Time</option>
@@ -69,7 +64,7 @@
                         <option value="freelance">Freelance</option>
                     </select>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <select name="experience" class="form-control">
                         <option value="">Experience Level</option>
                         <option value="0">Fresher</option>
@@ -78,7 +73,7 @@
                         <option value="5">5+ years</option>
                     </select>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <select name="sort" class="form-control">
                         <option value="">Sort By Salary</option>
                         <option value="asc">Low to High</option>
@@ -101,9 +96,6 @@
             return is_numeric($clean) ? (int)$clean : 0;
         }
 
-        $title = strtolower($_GET['title'] ?? '');
-        $company = strtolower($_GET['company'] ?? '');
-        $skills = strtolower($_GET['skills'] ?? '');
         $salary = strtolower($_GET['salary'] ?? '');
         $jobtype = strtolower($_GET['jobtype'] ?? '');
         $experience = $_GET['experience'] ?? '';
@@ -111,9 +103,9 @@
 
         $localJobs = json_decode(file_get_contents("jobs.json"), true);
 
-        $apiUrl = "https://api.example.com/jobs";
-        $apiKey = "your-api-key";
-        $apiId = "your-api-id";
+        $apiUrl = "https://api.example.com/jobs?apiKey=6eb7759313d83252f9e8aa9d10d768b7&apiId=ea610a37";
+        $apiKey = "6eb7759313d83252f9e8aa9d10d768b7";
+        $apiId = "ea610a37";
 
         $apiJobs = [];
         $ch = curl_init();
@@ -136,11 +128,8 @@
 
         $jobs = array_merge($localJobs, $apiJobs);
 
-        $filteredJobs = array_filter($jobs, function($job) use ($title, $company, $skills, $salary, $jobtype, $experience) {
-            return (empty($title) || stripos($job['title'], $title) !== false)
-                && (empty($company) || stripos($job['company'], $company) !== false)
-                && (empty($skills) || stripos($job['skills'], $skills) !== false)
-                && (empty($salary) || stripos($job['salary'], $salary) !== false)
+        $filteredJobs = array_filter($jobs, function($job) use ($salary, $jobtype, $experience) {
+            return (empty($salary) || stripos($job['salary'], $salary) !== false)
                 && (empty($jobtype) || (isset($job['type']) && stripos($job['type'], $jobtype) !== false))
                 && (empty($experience) || (isset($job['years']) && (int)$job['years'] >= (int)$experience));
         });
