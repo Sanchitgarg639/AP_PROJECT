@@ -44,7 +44,7 @@
         </div>
 
         <div class='foot' >
-            <div class='copyright text-center'>Copyright 2021 Shadebazaar 2021 All rights reserved</div>
+            <div class='copyright text-center'>Copyright © 2021–2025 JOBSEEK. All rights reserved.</div>
             <div class='join text-center'>
                 Join us on:
                 <a href='https://www.instagram.com/sad_success_motivation/' target='_blank' style='color:pink;'>
