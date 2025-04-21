@@ -15,23 +15,11 @@
     <link href="https://kit-pro.fontawesome.com/releases/v5.15.3/css/pro.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/_footerc.css">
+    <link rel="stylesheet" href="css/nav.css">
 </head>
 <body>
     <div>
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <a href="home.php"><span style="color: #CBB26A;">JOBSEEK</span></a>
-            </div>
-            <nav class="nav">
-                <ul>
-                    <li><a href="profile.php">Profile</a></li>
-                    <li><a href="signup.php">Sign Up</a></li>
-                    <li><a href="login.php">Login</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+        <?php include 'partial/_nav.php' ?>
     
     <?php
     if(isset($_GET['login'])){
