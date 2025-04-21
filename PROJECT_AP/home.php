@@ -49,7 +49,7 @@
         <div class="container text-center">
             <h1>Find Your Dream Job</h1>
             <p>Connecting job seekers with top employers. Start your journey today!</p>
-            <a href="signup.php" class="btn btn-primary" style="float:right;">Get Started</a>
+            <a href="jobs.php" class="btn btn-primary" style="float:right;">Get Started</a>
         </div>
     </section>
 
