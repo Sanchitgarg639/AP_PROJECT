@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 .navbar {
-	font-family: 'Montserrat', sans-serif;
-    background-color: #213159; /* Matches the dark blue theme */
+	  font-family: 'Montserrat', sans-serif;
+    background-color: #143c64; /* Matches the dark blue theme */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
