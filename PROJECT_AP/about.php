@@ -8,10 +8,11 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://kit-pro.fontawesome.com/releases/v5.15.3/css/pro.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/_nav.css">
     <link rel="stylesheet" href="css/_footerc.css">
-    <link rel="stylesheet" href="css/nav.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
@@ -19,6 +20,42 @@
             background-color: #f8f9fa;
             color: #333;
         }
+
+        .header {
+            background: url('https://via.placeholder.com/1920x400') no-repeat center center/cover;
+            color: white;
+            padding: 20px 0;
+        }
+
+        .header .logo a {
+            font-size: 28px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #CBB26A;
+        }
+
+        .header .nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header .nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .header .nav ul li a:hover {
+            background-color: #CBB26A;
+            color: #143c64;
+        }
+
         .about-hero {
             background-color: #143c64;
             color: white;
@@ -125,9 +162,7 @@
     </style>
 </head>
 <body>
-    
-<?php include 'partial/_nav.php' ?>
-
+    <?php  include 'partial/_navbar.php';?>
     <section class="about-hero">
         <div class="container text-center">
             <h1>About JobSeek</h1>
@@ -161,24 +196,16 @@
             <p>Our team of dedicated professionals works tirelessly to ensure your success.</p>
             <div class="row">
                 <div class="col-md-3">
-                    <img src="https://via.placeholder.com/150" alt="Team Member">
                     <h4>Sanchit Garg</h4>
-                    <p>Founder & CEO</p>
                 </div>
                 <div class="col-md-3">
-                    <img src="https://via.placeholder.com/150" alt="Team Member">
                     <h4>Saurabh Jadhav</h4>
-                    <p>Head of Operations</p>
                 </div>
                 <div class="col-md-3">
-                    <img src="https://via.placeholder.com/150" alt="Team Member">
                     <h4>Arijeet Tripathi</h4>
-                    <p>Lead Developer</p>
                 </div>
                 <div class="col-md-3">
-                    <img src="https://via.placeholder.com/150" alt="Team Member">
                     <h4>Shlok Dadhich</h4>
-                    <p>Lead Developer</p>
                 </div>
             </div>
         </div>
