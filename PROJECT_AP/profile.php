@@ -3,7 +3,6 @@ include 'partials/dbconnect.php';
 error_reporting(0);
 session_start();
 
-//Getting use id
 $ppn = $_SESSION['userphone'];
 $quer = "SELECT * FROM `resume` WHERE `phone`='$ppn'";
 $resul = mysqli_query($conn , $quer);
