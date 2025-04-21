@@ -15,11 +15,11 @@
     <link href="https://kit-pro.fontawesome.com/releases/v5.15.3/css/pro.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/_footerc.css">
-    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/_nav.css">
 </head>
 <body>
+    <?php include 'partial/_navbar.php' ?>
     <div>
-        <?php include 'partial/_nav.php' ?>
     
     <?php
     if(isset($_GET['login'])){
