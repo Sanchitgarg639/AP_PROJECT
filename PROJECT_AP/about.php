@@ -9,9 +9,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://kit-pro.fontawesome.com/releases/v5.15.3/css/pro.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/_footerc.css">
+    <link rel="stylesheet" href="css/nav.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
-
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
@@ -19,42 +19,6 @@
             background-color: #f8f9fa;
             color: #333;
         }
-
-        .header {
-            background: url('https://via.placeholder.com/1920x400') no-repeat center center/cover;
-            color: white;
-            padding: 20px 0;
-        }
-
-        .header .logo a {
-            font-size: 28px;
-            font-weight: bold;
-            text-decoration: none;
-            color: #CBB26A;
-        }
-
-        .header .nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-            margin: 0;
-            padding: 0;
-        }
-
-        .header .nav ul li a {
-            text-decoration: none;
-            color: white;
-            font-size: 16px;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .header .nav ul li a:hover {
-            background-color: #CBB26A;
-            color: #143c64;
-        }
-
         .about-hero {
             background-color: #143c64;
             color: white;
@@ -161,21 +125,8 @@
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <a href="home.php">JOBSEEK</a>
-            </div>
-            <nav class="nav" style="float:right;">
-                <ul>
-                    <li><a href="home.php">Home</a></li>
-                    <li><a href="profile.php">Profile</a></li>
-                    <li><a href="signup.php">Sign Up</a></li>
-                    <li><a href="login.php">Login</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    
+<?php include 'partial/_nav.php' ?>
 
     <section class="about-hero">
         <div class="container text-center">
