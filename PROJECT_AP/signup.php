@@ -58,103 +58,106 @@
         $work2 = mysqli_real_escape_string($conn, $_POST['work2']);
         $work2d = mysqli_real_escape_string($conn, $_POST['work2d']);
 
-        if(empty($firstn)){ $firstnameer = 'Error! Enter your first name.'; }
-        else{
-            if(empty($lastn)){ $lastnameer = 'Error! Enter your last name.'; }
-            else{
-            if(empty($phone)){ $phoneer = 'Error! Enter your phone number.'; }
-            else{
-                if(empty($mail)){ $mailer = 'Error! Enter your email address.'; }
-                else{
-                        if(empty($house) || empty($city) || empty($pincode) || empty($state) || empty($country) || empty($area)){
-                            $addresser = 'Error! Enter your Full Address.';
-                        }
-                        else{
-                            if(empty($weburl)){ $weburler = 'Error! Enter your website URL.'; }
-                            else{        
-                                if(empty($skill1) || empty($skill2)){ $skiller = 'Error! Enter at least 2 of your skills.'; }
-                                else{
-                                    if(empty($softwear1) || empty($softwear2)){ $softwearer = 'Error! Enter at least 2 softwears you are comfortable in using.'; }
-                                    else{
-                                        if(empty($hobby1) || empty($hobby2)){ $hobbyer = 'Error! Enter at least 2 of your hobbies.'; }
-                                        else{
-                                            if(empty($mskill)){ $mskiller = 'Error! Enter your main skill.'; }
-                                            else{
-                                                if(empty($mskilld)){ $mskillder = 'Error! Do describe your main.'; }
-                                                else{
-                                                if(empty($personal)){ $personaler = 'Error! Describe yourself.'; }
-                                                else{
-                                                    if(empty($edu1) || empty($edu1uni)){ $edu1er = 'Error! Enter your education details.'; }
-                                                    else{
-                                                        $phoneSql = "SELECT * FROM `resume` WHERE phone=$phone";
-                                                        $phoneResult = mysqli_query($conn, $phoneSql);
-                                                        $phoneRow = mysqli_num_rows($phoneResult);
-                                
-                                                        if($phoneRow > 0){ $phoneer = "Error! This Phone Number already exists."; }
-                                                        else{
-                                                            $mailSql = "SELECT * FROM `resume` WHERE mail='$mail'";
-                                                            $mailResult = mysqli_query($conn, $mailSql);
-                                                            $mailRow = mysqli_num_rows($mailResult); 
-                                                            if($mailRow > 0){ $mailer = "Error! This Email Address already exists."; }
-                                                            else{
-                                                                if(strlen($user) >= 61 || strlen($user) <= 3){ $userer = "Error! Username's length can be between 4 to 60."; }
-                                                                else{
-                                                                    if(strlen($phone) != 10){ $phoneer = "Error! Enter a valid phone number."; }
-                                                                    else{
-                                                                        if(strlen($pass) <= 6 || strlen($pass) >= 21){ $passer = "Error! password's length can be between 7 to 20 only."; }
-                                                                        else{
-                                                                            if(strlen($mail) >= 200){ $mailer = "Error Email's length cannot be greater than 200."; }
-                                                                            else{
-                                                                                if($pass != $cpass){ $matcher = "Error! Passwords do not match."; }
-                                                                            else{
-                                                                                $address =  $house.' '.$area.' '.$city.' - '.$pincode.' '.$state.' '.$country;
-                                                                                $hash = password_hash($pass , PASSWORD_DEFAULT); 
-                                                                                if(empty($work1) || empty($work1d)){ $work1 = ' '; $work1d = ' '; }
-                                                                                if(empty($work2) || empty($work2d)){ $work2 = ' '; $work2d = ' '; }
-                                                                                if(empty($edu2) || empty($edu2uni)){ $edu2 = ' '; $edu2uni = ' '; }
-                                                                                if(empty($edu3) || empty($edu3uni)){ $edu3 = ' '; $edu3uni = ' '; }
-                                                                                if(empty($hobby3)){ $hobby3 = ' '; }
-                                                                                if(empty($skill3)){ $skill3 = ' '; }
-                                                                                if(empty($skill4)){ $skill4 = ' '; }
-                                                                                if(empty($softwear3)){ $softwear3 = ' '; }
+        $phoneSql = "SELECT * FROM `resume` WHERE phone=$phone";
+        $phoneResult = mysqli_query($conn, $phoneSql);
+        $phoneRow = mysqli_num_rows($phoneResult);
 
-                                                                                $check = getimagesize($temp_name);
-                                                                                if($check !== false) {
-                                                                                    // Move the uploaded file to the desired location
-                                                                                    if(move_uploaded_file($temp_name, $folder)){
-                                                                                    $query = "INSERT INTO `resume`(`fname`, `lname`, `userimg`, `mail`, `phone`, `address`, `website`, `skill1`, `skill2`, `skill3`, `skill4`, `softwear1`, `softwear2`, `softwear3`, `hobby1`, `hobby2`, `hobby3`, `main_skill`, `main_skill_discp`, `personal`, `deg1`, `uni1`, `deg2`, `uni2`, `deg3`, `uni3`, `topic1`, `work1`, `topic2`, `work2`, `pass`) VALUES ('$firstn', '$lastn', '$folder','$mail','$phone','$address','$weburl','$skill1','$skill2','$skill3','$skill4','$softwear1','$softwear2','$softwear3','$hobby1','$hobby2','$hobby3','$mskill','$mskilld','$personal','$edu1','$edu1uni','$edu2','$edu2uni','$edu3','$edu3uni','$work1','$work1d','$work2','$work2d', '$hash')";
+        $mailSql = "SELECT * FROM `resume` WHERE mail='$mail'";
+        $mailResult = mysqli_query($conn, $mailSql);
+        $mailRow = mysqli_num_rows($mailResult); 
 
-                                                                                    $result = mysqli_query($conn, $query);
-                                                                                    if($result){ 
-                                                                                        $_SESSION['sign'] = true;
-                                                                                        $successful = true;
-                                                                                        header("Location: login.php?signup=true");
-                                                                                    }
-                                                                                    else{ $error = true; }
-                                                                                    }
-                                                                                    else { $imger = "Failed to upload image."; }
-                                                                                } 
-                                                                                else { $imger = "File is not an image."; }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+        if(empty($firstn)){
+            $firstnameer = 'Error! Enter your first name.'; 
         }
-    }
-}
+        elseif(empty($lastn)){
+            $lastnameer = 'Error! Enter your last name.'; 
+        }
+        elseif(empty($phone)){
+            $phoneer = 'Error! Enter your phone number.'; 
+        }
+        elseif(empty($mail)){
+            $mailer = 'Error! Enter your email address.'; 
+        }
+        elseif(empty($house) || empty($city) || empty($pincode) || empty($state) || empty($country) || empty($area)){
+            $addresser = 'Error! Enter your Full Address.';
+        }
+        elseif(empty($weburl)){
+            $weburler = 'Error! Enter your website URL.'; 
+        }
+        elseif(empty($skill1) || empty($skill2)){
+            $skiller = 'Error! Enter at least 2 of your skills.'; 
+        }
+        elseif(empty($softwear1) || empty($softwear2)){ 
+            $softwearer = 'Error! Enter at least 2 softwears you are comfortable in using.'; 
+        }
+        elseif(empty($hobby1) || empty($hobby2)){ 
+            $hobbyer = 'Error! Enter at least 2 of your hobbies.'; 
+        }
+        elseif(empty($mskill)){ 
+            $mskiller = 'Error! Enter your main skill.'; 
+        }
+        elseif(empty($mskilld)){ 
+            $mskillder = 'Error! Do describe your main.'; 
+        }
+        elseif(empty($personal)){ 
+            $personaler = 'Error! Describe yourself.'; 
+        }
+        elseif(empty($edu1) || empty($edu1uni)){ 
+            $edu1er = 'Error! Enter your education details.'; 
+        }
+        elseif($phoneRow > 0){ 
+            $phoneer = "Error! This Phone Number already exists."; 
+        }
+        elseif($mailRow > 0){ 
+            $mailer = "Error! This Email Address already exists."; 
+        }
+        elseif (!filter_var($mail, FILTER_VALIDATE_EMAIL)) { 
+            $mailer = "Invalid email format"; 
+        }
+        elseif(strlen($user) >= 61 || strlen($user) <= 3){ 
+            $userer = "Error! Username's length can be between 4 to 60."; 
+        }
+        elseif(strlen($phone) != 10){ 
+            $phoneer = "Error! Enter a valid phone number."; 
+        }
+        elseif(strlen($pass) <= 6 || strlen($pass) >= 21){ 
+            $passer = "Error! password's length can be between 7 to 20 only."; 
+        }
+        elseif(strlen($mail) >= 200){ 
+            $mailer = "Error Email's length cannot be greater than 200."; 
+        }
+        elseif($pass != $cpass){ 
+            $matcher = "Error! Passwords do not match."; 
+        }
+        else{
+            $address =  $house.' '.$area.' '.$city.' - '.$pincode.' '.$state.' '.$country;
+            $hash = password_hash($pass , PASSWORD_DEFAULT); 
+            if(empty($work1) || empty($work1d)){ $work1 = ' '; $work1d = ' '; }
+            if(empty($work2) || empty($work2d)){ $work2 = ' '; $work2d = ' '; }
+            if(empty($edu2) || empty($edu2uni)){ $edu2 = ' '; $edu2uni = ' '; }
+            if(empty($edu3) || empty($edu3uni)){ $edu3 = ' '; $edu3uni = ' '; }
+            if(empty($hobby3)){ $hobby3 = ' '; }
+            if(empty($skill3)){ $skill3 = ' '; }
+            if(empty($skill4)){ $skill4 = ' '; }
+            if(empty($softwear3)){ $softwear3 = ' '; }
+
+            $check = getimagesize($temp_name);
+            if($check !== false) {
+                // Move the uploaded file to the desired location
+                if(move_uploaded_file($temp_name, $folder)){
+                    $query = "INSERT INTO `resume`(`fname`, `lname`, `userimg`, `mail`, `phone`, `address`, `website`, `skill1`, `skill2`, `skill3`, `skill4`, `softwear1`, `softwear2`, `softwear3`, `hobby1`, `hobby2`, `hobby3`, `main_skill`, `main_skill_discp`, `personal`, `deg1`, `uni1`, `deg2`, `uni2`, `deg3`, `uni3`, `topic1`, `work1`, `topic2`, `work2`, `pass`) VALUES ('$firstn', '$lastn', '$folder','$mail','$phone','$address','$weburl','$skill1','$skill2','$skill3','$skill4','$softwear1','$softwear2','$softwear3','$hobby1','$hobby2','$hobby3','$mskill','$mskilld','$personal','$edu1','$edu1uni','$edu2','$edu2uni','$edu3','$edu3uni','$work1','$work1d','$work2','$work2d', '$hash')";
+                    $result = mysqli_query($conn, $query);
+                    if($result){ 
+                        $_SESSION['sign'] = true;
+                        $successful = true;
+                        header("Location: login.php?signup=true");
+                    }
+                    else{ $error = true; }
+                }
+                else { $imger = "Failed to upload image."; }
+            } 
+            else { $imger = "File is not an image."; }
+        }
 }
 ?>
 <!doctype html>
