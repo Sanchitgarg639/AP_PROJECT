@@ -21,40 +21,28 @@
 		if(empty($title)){
 			$titleer = "Please enter your company name.";
 		}
-		else{
-			if(empty($company)){
-				$companyer = "Please enter the salary.";
-			}
-			else{		
-				if(empty($location)){
-					$locationer = "Please enter the positions available.";
-				}
-				else{
-					if(empty($discp)){
-						$discper = "Please enter the job description.";
-					}
-					else{
-						if(empty($salary)){
-							$salaryer = "Please enter the skills needed.";
-						}
-						else{
-							if(empty($yr)){
-								$yrer = "Please enter the years contract is valid for.";
-							}
-							else{					
-								$sql = "INSERT INTO `jobpost` (`title`, `company`, `location`, `salary`, `discp`, `leastyr`) VALUES ('$title', '$company', '$location', '$salary', '$discp', '$yr')";
-                                $result = mysqli_query($conn, $sql);
-								if ($result) { $successful = true; }
-                                else { $error = true; }
-							}
-						}
-					}
-				}
-			}
-
+		elseif(empty($company)){
+			$companyer = "Please enter the salary.";
+		}
+		elseif(empty($location)){
+			$locationer = "Please enter the positions available.";
+		}
+		elseif(empty($discp)){
+			$discper = "Please enter the job description.";
+		}
+		elseif(empty($salary)){
+			$salaryer = "Please enter the skills needed.";
+		}
+		elseif(empty($yr)){
+			$yrer = "Please enter the years contract is valid for.";
+		}
+		else{					
+			$sql = "INSERT INTO `jobpost` (`title`, `company`, `location`, `salary`, `discp`, `leastyr`) VALUES ('$title', '$company', '$location', '$salary', '$discp', '$yr')";
+            $result = mysqli_query($conn, $sql);
+			if ($result) { $successful = true; }
+            else { $error = true; }
 		}
 	}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
