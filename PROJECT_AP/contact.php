@@ -1,7 +1,40 @@
 <?php
     include 'partials/dbconnect.php';
     session_start();
-    error_reporting(0);
+    error_reporting();
+
+    $messageer = false; $nameer = false; $emailer = false;
+    $successful = false; $error = false;
+    if (isset($_POST['submit'])) {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $message = $_POST['message'];
+
+        if (empty($name)){
+            $nameer = "Enter your Name";
+        }
+        elseif (empty($email)){
+            $emailer = "Enter your Email";
+        }
+        elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $emailer = "Invalid email format";
+        }
+        elseif (strlen($name) < 3 || strlen($name) > 50){
+            $nameer = "Name must be between 3 and 50 characters";
+        }
+        elseif(empty($message)){
+            $messageer = "Enter the message you want to send";
+        }
+        else{
+            $sql = "INSERT INTO `contact` (`name`, `mail`, `msg`) VALUES ('$name', '$email', '$message')";
+            $result = mysqli_query($conn, $sql);
+            if ($result) {
+                $successful = true;
+            } else {
+                $error = true;
+            }
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,77 +46,12 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://kit-pro.fontawesome.com/releases/v5.15.3/css/pro.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/_nav.css">
     <link rel="stylesheet" href="css/_footerc.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-            color: #333;
-        }
-
-        .contact-hero {
-            background-color: #143c64;
-            color: white;
-            padding: 50px 0;
-        }
-
-        .contact-hero h1 {
-            font-size: 36px;
-            font-weight: 600;
-        }
-
-        .contact-hero p {
-            font-size: 18px;
-            margin-top: 10px;
-        }
-
-        .contact-form {
-            padding: 50px 0;
-        }
-
-        .contact-form h2 {
-            font-size: 24px;
-            color: #143c64;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .contact-form label {
-            font-size: 16px;
-            color: #555;
-        }
-
-        .contact-form input, .contact-form textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .contact-form button {
-            background-color: #CBB26A;
-            color: #143c64;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .contact-form button:hover {
-            background-color: #143c64;
-            color: white;
-        }
-    </style>
+    <link rel="stylesheet" href="css/_navc.css">
+    <link rel="stylesheet" href="css/contact.css">
 </head>
 <body>
-    <?php include 'partial/_navbar.php'; ?>
+    <?php include 'partial/_nav.php'; ?>
 
     <section class="contact-hero">
         <div class="container text-center">
@@ -92,23 +60,44 @@
         </div>
     </section>
 
+    <?php
+        if($successful){
+            echo "
+            <div class='alert alert-info alert-dismissible fade show my-0' role='alert'>
+                You have successfully submitted your message. We will get back to you soon.
+                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
+        }
+
+		if($error){
+			echo "
+			<div class='alert alert-danger alert-dismissible fade show my-0' role='alert'>
+				<strong> Oops! </strong> Something went wrong. Please try again.
+				<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+			</div>";
+		}
+    ?>
+
     <section class="contact-form">
         <div class="container">
             <h2>Get in Touch</h2>
-            <form action="process_contact.php" method="POST">
+            <form action="" method="POST">
                 <div class="mb-3">
                     <label for="name" class="form-label">Your Name</label>
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name">
+                    <?php if($nameer) { echo "<div class='text-danger'>$nameer</div>"; } ?>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Your Email</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email">
+                    <?php if($emailer) { echo "<div class='text-danger'>$emailer</div>"; } ?>
                 </div>
                 <div class="mb-3">
                     <label for="message" class="form-label">Your Message</label>
-                    <textarea id="message" name="message" class="form-control" rows="5" placeholder="Enter your message" required></textarea>
+                    <textarea id="message" name="message" class="form-control" rows="5" placeholder="Enter your message"></textarea>
+                    <?php if($messageer) { echo "<div class='text-danger'>$messageer</div>"; } ?>
                 </div>
-                <button type="submit" class="btn btn-primary">Send Message</button>
+                <button type="submit" id="submit" name="submit" class="btn btn-primary">Send Message</button>
             </form>
         </div>
     </section>
